@@ -1,0 +1,58 @@
+<p id="notice"><%= notice %></p>
+<div >
+  <p>
+    <strong>Title:</strong>
+    <%= @book.title %>
+  </p>
+
+  <p>
+    <strong>Author:</strong>
+    <%= @book.author %>
+  </p>
+
+  <p>
+    <strong>User:</strong>
+    <%= @book.user.username %>
+  </p>
+
+ <div>
+    <strong>Tradeable:</strong>
+    <%if @book.tradeable == true %>
+    <p>  <a href="<%= new_book_exchange_path(@book.id) %>" class="btn btn-secondary text-white">Trade </a></p>
+    <%else %>
+      <%= @book.tradeable %>
+    <% end %>
+</div>
+
+  <hr>
+  <h2>Comments:</h2>
+  <%= render @book.comments.apprend %>
+  <div class="comments" > 
+  <hr>
+  <h5> Pending Approval Comments:</h5>
+  <%= render @comments_status %>
+  </div>
+  <hr>
+
+  <h3>Add a comment:</h3>
+  <%= form_with(model: [ @book, @book.comments.build ], local: false) do |form| %>
+    
+      <%= form.label :title %>
+      <%= form.text_field :title %>
+   
+    <p>
+      <%= form.label :content %>
+      <%= form.text_area :content %>
+    </p>
+
+    <button type="submit" class="btn btn-secondary" >
+      CREATE
+    </button>
+
+  <% end %>
+
+  <hr>
+
+  <%= link_to 'Edit', edit_book_path(@book) %> |
+  <%= link_to 'Back', books_path %>
+</div>

@@ -1,0 +1,9 @@
+<div class="container">
+  <h2><%= @user.username %> suggested <%= @book.title%></h2>
+
+  <div >
+    <%= link_to 'Approve', :controller => :exchanges, :action => :approve %>
+    <%= link_to 'Deny', :controller => :exchanges, :action => :deny %>
+  </div>
+
+</div>

@@ -1,0 +1,114 @@
+<p id="notice"><%= notice %></p>
+<div class="container">
+  <div class="row jumbotron text-center">
+    <h1 >Dashboard</h1>
+      <table class="table table-borderless table-hover ">
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Author</th>
+            <th>User</th>
+            <th>Show</th>
+            <th >Edit</th>
+            <th >Destroy</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @book.each do |book| %>
+            <tr>
+              <td><%= book.title %></td>
+              <td><%= book.author %></td>
+              <td><%= book.user.username %></td>
+              <td><%= link_to 'Show', book %></td>
+              <td><%= link_to 'Edit', edit_book_path(book) %></td>
+              <td><%= link_to 'Destroy', book_path(book),method: :delete,data: { confirm: 'Are you sure?' } %></td>
+              </tr>
+          <% end %>
+        </tbody>
+      </table>
+  </div>
+  <div class="row">
+    <h4>Comments</h4>
+    <table class="table table-borderless table-hover ">
+      <thead>
+        <tr>
+          <th>Book</th>
+          <th>Title</th>
+          <th>Content</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @comment.each do |comment| %>
+          <tr>
+          <td><%= Book.find(comment.book_id).title  %></td>
+            <td><%= comment.title %></td>
+            <td><%= comment.content %></td>
+            <td><%= comment.status %></td>
+           </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+  <div class="row">
+    <h4>Comments Requests</h4>
+    <table class="table table-borderless table-hover ">
+      <thead>
+        <tr>
+          <th>Book</th>
+          <th>Title</th>
+          <th>Content</th>
+          <th>Status</th>
+          <th>Approve</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @comment_req.each do |comment| %>
+          <tr>
+          <td><%= Book.find(comment.book_id).title  %></td>
+            <td><%= comment.title %></td>
+            <td><%= comment.content %></td>
+            <td><%= comment.status %></td>
+            <td> <%= link_to 'Approve ', edit_book_comment_path(comment.book_id, comment.id) %></td>
+           </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-6">
+      <h4> Book Requests </h4>            
+        <table class="table table-borderless table-hover ">
+          <tbody>
+          <% @exchange.wait.each do |exchange| %>
+            <tr>
+              <td><%= Book.find(exchange.offer_book_id).title %></td>
+              <td><%= User.find(exchange.user_id).username %></td>
+              <td><%= exchange.trade_status %></td>
+              <td> <%= link_to 'Show ', edit_book_exchange_path(exchange.book_id,exchange.id) %></td>
+            </tr>
+          <% end %>
+          </tbody>
+        </table>
+    </div>
+
+    <div class="col-sm-6">
+      <h4>My Book Requests</h4>
+      <table class="table table-borderless table-hover ">
+        <tbody>
+        <% current_user.exchanges.each do |exchange| %>
+          <tr>
+            <td><%= Book.find(exchange.offer_book_id).title %></td>
+            <td><%= User.find(exchange.user_id).username %></td>
+            <td><%= exchange.trade_status %></td>
+
+          </tr>
+        <% end %>
+        </tbody>
+    </table>
+    </div>
+  </div>
+
+<%= link_to 'Home', root_path %>
+</div>

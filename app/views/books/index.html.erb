@@ -1,0 +1,33 @@
+<p id="notice"><%= notice %></p>
+<div>
+<h1>Books</h1>
+
+
+<table class="table table-borderless table-hover ">
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Author</th>
+      <th>User</th>
+      
+      <th>Show</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @books.each do |book| %>
+      <tr>
+        <td><%= book.title %></td>
+        <td><%= book.author %></td>
+        <td><%= book.user.username %></td>
+        <td><%= link_to 'Show', book %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Book', new_book_path %>
+<%= link_to 'Dashboard', dashboard_index_url %>
+</div>
